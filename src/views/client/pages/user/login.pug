@@ -1,0 +1,81 @@
+include ../../mixins/alert.pug
+
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  title #{titlePage}
+  link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css')
+  link(rel="stylesheet", href="/client/css/home.css")
+body
+  +alert-error(3000)
+  +alert-warning(3000)
+
+  section.bg-light.p-3.p-md-4.p-xl-5
+    .container
+      .row.justify-content-center
+        .col-12.col-xxl-11
+          .card.border-light-subtle.shadow-sm
+            .row.g-0
+              .col-12.col-md-6
+                img.img-fluid.rounded-start.w-100.h-100.object-fit-cover(loading='lazy', src='https://bootstrapbrain.com/demo/components/registrations/registration-8/assets/img/logo-img-1.webp', alt="Welcome back you've been missed!")
+              .col-12.col-md-6.d-flex.align-items-center.justify-content-center
+                .col-12.col-lg-11.col-xl-10
+                  .card-body.p-3.p-md-4.p-xl-5
+                    .row
+                      .col-12
+                        .mb-5
+                          .text-center.mb-4
+                            a(href='/')
+                              img(src='https://i.imgur.com/EXWT1pI.png', alt='Logo', width='175', height='175')
+                          h2.h4.text-center Login
+                    .row
+                      .col-12
+                        .d-flex.gap-3.flex-column
+                          a.btn.btn-lg.btn-outline-dark(href='#!')
+                            svg.bi.bi-google(xmlns='http://www.w3.org/2000/svg', width='16', height='16', fill='currentColor', viewbox='0 0 16 16')
+                              path(d='M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z')
+                            span.ms-2.fs-6 Log in with Google
+                        p.text-center.mt-4.mb-5
+                          | Or enter your details to login
+                    form(
+                      action='/users/login'
+                      method="POST"
+                    )
+                      .row.gy-3.overflow-hidden
+                        .col-12
+                          .form-floating.mb-3
+                            input#email.form-control(type='email', name='email', placeholder='name@example.com', required='')
+                            label.form-label(for='email') Email
+                        .col-12
+                          .input-group.form-floating.mb-3
+                            input#password.form-control(type='password', name='password', value='', placeholder='Password', required='')
+                            label.form-label(for='password') Password
+                            span.input-group-text
+                              i#togglePassword.far.fa-eye-slash(style='cursor: pointer')
+                        .col-12
+                          .form-check
+                            input#iAgree.form-check-input(type='checkbox', value='', name='iAgree')
+                            label.w-50.text-left.form-check-label.text-secondary(for='iAgree')
+                              | Remember Me
+                            a.w-50.link-primary.text-decoration-none.text-right(href='/users/password/forgot') Forgot password
+                        .col-12
+                          .d-grid
+                            button.btn.btn-dark.btn-lg(type='submit')
+                              | Sign in
+                    .row
+                      .col-12
+                        p.mb-0.mt-5.text-secondary.text-center
+                          | Don&apos;t have an account? 
+                          a.link-primary.text-decoration-none(href='/users/register') Sign up
+  svg(xmlns='http://www.w3.org/2000/svg', style='display: none')
+    symbol#check-circle-fill(fill='currentColor', viewbox='0 0 16 16')
+      path(d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z')
+    symbol#info-fill(fill='currentColor', viewbox='0 0 16 16')
+      path(d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z')
+    symbol#exclamation-triangle-fill(fill='currentColor', viewbox='0 0 16 16')
+      path(d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z')
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
+  script(src="/client/js/home.js")

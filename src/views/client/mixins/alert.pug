@@ -1,0 +1,31 @@
+mixin alert-success(time)
+  - if (messages.success)
+    .alert.alert-success.d-flex.align-items-center.alert-dismissible(role='alert', show-alert, data-time=time)
+      svg.bi.flex-shrink-0.me-2(width='24', height='24', role='img', aria-label='Success:')
+        use(xlink:href='#check-circle-fill')
+      div #{messages.success}
+      button.btn-close(type='button', data-bs-dismiss='alert')
+
+mixin alert-error(time)
+  - if (messages.error)
+    .alert.alert-danger.d-flex.align-items-center.alert-dismissible(role='alert', show-alert, data-time=time)
+      svg.bi.flex-shrink-0.me-2(width='24', height='24', role='img', aria-label='Danger:')
+        use(xlink:href='#exclamation-triangle-fill')
+      div #{messages.error}
+      button.btn-close(type='button', data-bs-dismiss='alert')
+
+mixin alert-info(time)
+  - if (messages.info)
+    .alert.alert-primary.d-flex.align-items-center.alert-dismissible(role='alert', show-alert, data-time=time)
+      svg.bi.flex-shrink-0.me-2(width='24', height='24', role='img', aria-label='Info:')
+        use(xlink:href='#info-fill')
+      div #{messages.info}
+      button.btn-close(type='button', data-bs-dismiss='alert')
+
+mixin alert-warning(time)
+  - if (messages.warning)
+    .alert.alert-warning.d-flex.align-items-center.alert-dismissible(role='alert', show-alert, data-time=time)
+      svg.bi.flex-shrink-0.me-2(width='24', height='24', role='img', aria-label='Warning:')
+        use(xlink:href='#exclamation-triangle-fill')
+      div #{messages.warning}
+      button.btn-close(type='button', data-bs-dismiss='alert')

@@ -1,0 +1,32 @@
+extends ../../layouts/default.pug
+
+block main
+  section.py-5
+    .container.px-4.px-lg-5.mt-5
+      .row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center
+        each category in categories
+          .col.mb-5
+            .card.h-100
+              // Sale badge
+              .badge.bg-danger.text-white.position-absolute(style='top: 0.5rem; right: 0.5rem') Top
+              // Product image
+              img.card-img-top(src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg' alt='...')
+              // Product details
+              .card-body.p-4
+                .text-center
+                  // Product name
+                  h5.fw-bolder #{category.title}
+                  // Product price
+                  <i class="fa-solid fa-user mb-3"></i>
+                    span.h6    Huynh Huu Hoang
+                  
+                  span.px-2
+                    i.fa-regular.fa-heart.fa-xl
+                    |  #{category.approxFavorite}
+                  //- span.px-2
+                  //-   i.fa-solid.fa-circle-plus.fa-xl(data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="Add to your card")
+                  //-   span(style="font-size: 13px; font-weight: 20px;")  Add
+              // Product actions
+              .card-footer.p-4.pt-0.border-top-0.bg-transparent
+                .text-center
+                  a.btn.btn-lg.btn-outline-dark.mt-auto(href=`/cards/${category.slug}`) Details

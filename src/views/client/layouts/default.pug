@@ -1,0 +1,31 @@
+include ../mixins/alert.pug
+
+doctype html
+html(lang="en")
+  head
+    title=titlePage
+
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="shortcut icon" type="image/x-icon" href="https://u-static.fotor.com/images/text-to-image/result/PRO-45074323fcce43b5a4627c0ab4012306.jpg")
+
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
+
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', rel='stylesheet')
+
+    link(rel="stylesheet" href="/client/css/home.css")
+
+  body
+    +alert-success(3000)
+    +alert-error(3000)
+
+    include ../partials/header.pug
+
+    block main
+
+    include ../partials/footer.pug
+
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js") 
+
+    script(src="/client/js/home.js") 
