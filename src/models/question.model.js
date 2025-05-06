@@ -3,17 +3,10 @@ const mongoose = require("mongoose");
 const questionSchema = new mongoose.Schema(
   {
     title: String,
-    answer: String,
-    subject_id: {
-      type: String,
-      default: ""
+    testId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Test"
     },
-    level: String,
-    deleted: {
-      type: Boolean,
-      default: false
-    },
-    deletedAt: Date
   }, {
     timestamps: true
   }

@@ -1,59 +1,113 @@
-nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-  .container.px-4.px-lg-5
-    a.navbar-brand(href='/')
-      img(src="https://i.imgur.com/EXWT1pI.png", alt="Quizz" class="rounded" style="width: 70px; height: 60px;")
-    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
-      span.navbar-toggler-icon
-    #navbarSupportedContent.collapse.navbar-collapse
-      ul.navbar-nav.me-auto.mb-2.mb-lg-0.ms-lg-4
-        li.nav-item
-          a.nav-link.active(aria-current='page' href='#!') Home
-        li.nav-item
-          a.nav-link(href='#!') Test
-        li.nav-item.dropdown
-          a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Doing test
-          ul.dropdown-menu(aria-labelledby='navbarDropdown')
-            li
-              a.dropdown-item(href='#!') All Subject
-            li
-              hr.dropdown-divider
-            li
-              a.dropdown-item(href='#!') Math
-            li
-              a.dropdown-item(href='#!') Science
-      div
-        if(user)
-          a.btn.btn-outline-light.mx-5(href="/")
-            i.fa-solid.fa-window-restore
-            |  Cards
-            span.badge.bg-white.text-dark.ms-1.rounded-pill 0
-        //- a.btn.btn-outline-dark.rounded-circle.bg-muted.mx-5(href="/setting")
-        //-   i.fa-solid.fa-gear
-        span.dropdown
-          //- a.btn.btn-outline-dark.rounded-circle.bg-muted.mx-5.d-none#settingDropdown(data-bs-toggle='dropdown' aria-expanded='false')
-          img.img-fluid.img-profile.rounded-circle.mx-5#settingDropdown(data-bs-toggle='dropdown' aria-expanded='false' src=(user) ? user.avatar : "https://th.bing.com/th/id/OIP.lF8ztkPyzv_NrpD7V8YYVAHaHa?rs=1&pid=ImgDetMain" style="height: 2.4rem; width: 2.4rem; cursor: pointer;")
-          ul.dropdown-menu(aria-labelledby='settingDropdown')
-            if(user)
-              li
-                a.dropdown-item(href='/users/info')
-                  i.fa-solid.fa-circle-user 
-                  span(style="white-space: pre;")    Profile
-              li
-                a.dropdown-item(href='#!')
-                  i.fa-solid.fa-gear
-                  span(style="white-space: pre;")    Settings
-              li
-                a.dropdown-item(href='/users/logout')
-                  i.fa-solid.fa-arrow-right-from-bracket
-                  span(style="white-space: pre;")    Log out
-            else
-              li
-                a.dropdown-item(href='/users/login')
-                  i.fa-solid.fa-arrow-right-to-bracket
-                  span(style="white-space: pre;")    Log in
+//- nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+//-   .container.px-4.px-lg-5
+//-     a.navbar-brand(href='/')
+//-       img(src="https://i.imgur.com/EXWT1pI.png", alt="Quizz" class="rounded" style="width: 70px; height: 60px;")
+//-     button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+//-       span.navbar-toggler-icon
+//-     #navbarSupportedContent.collapse.navbar-collapse
+//-       ul.navbar-nav.me-auto.mb-2.mb-lg-0.ms-lg-4
+//-         li.nav-item
+//-           a.nav-link.active(aria-current='page' href='#!') Home
+//-         li.nav-item
+//-           a.nav-link(href='#!') Test
+//-         li.nav-item.dropdown
+//-           a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Doing test
+//-           ul.dropdown-menu(aria-labelledby='navbarDropdown')
+//-             li
+//-               a.dropdown-item(href='#!') All Subject
+//-             li
+//-               hr.dropdown-divider
+//-             li
+//-               a.dropdown-item(href='#!') Math
+//-             li
+//-               a.dropdown-item(href='#!') Science
+//-       div
+//-         if(user)
+//-           a.btn.btn-outline-light.mx-5(href="/")
+//-             i.fa-solid.fa-window-restore
+//-             |  Cards
+//-             span.badge.bg-white.text-dark.ms-1.rounded-pill 0
+//-         //- a.btn.btn-outline-dark.rounded-circle.bg-muted.mx-5(href="/setting")
+//-         //-   i.fa-solid.fa-gear
+//-         span.dropdown
+//-           //- a.btn.btn-outline-dark.rounded-circle.bg-muted.mx-5.d-none#settingDropdown(data-bs-toggle='dropdown' aria-expanded='false')
+//-           img.img-fluid.img-profile.rounded-circle.mx-5#settingDropdown(data-bs-toggle='dropdown' aria-expanded='false' src=(user) ? user.avatar : "https://th.bing.com/th/id/OIP.lF8ztkPyzv_NrpD7V8YYVAHaHa?rs=1&pid=ImgDetMain" style="height: 2.4rem; width: 2.4rem; cursor: pointer;")
+//-           ul.dropdown-menu(aria-labelledby='settingDropdown')
+//-             if(user)
+//-               li
+//-                 a.dropdown-item(href='/users/info')
+//-                   i.fa-solid.fa-circle-user 
+//-                   span(style="white-space: pre;")    Profile
+//-               li
+//-                 a.dropdown-item(href='#!')
+//-                   i.fa-solid.fa-gear
+//-                   span(style="white-space: pre;")    Settings
+//-               li
+//-                 a.dropdown-item(href='/users/logout')
+//-                   i.fa-solid.fa-arrow-right-from-bracket
+//-                   span(style="white-space: pre;")    Log out
+//-             else
+//-               li
+//-                 a.dropdown-item(href='/users/login')
+//-                   i.fa-solid.fa-arrow-right-to-bracket
+//-                   span(style="white-space: pre;")    Log in
 
 //- header.bg-dark.py-5
 //-   .container.px-4.px-lg-5.my-5
 //-     .text-center.text-white
 //-       h1.display-4.fw-bolder Shop in style
 //-       p.lead.fw-normal.text-white-50.mb-0 With this shop homepage template
+
+header.header
+  .container.header-container
+    .logo-container
+      .logo
+        .logo-inner
+          span QUIZ
+      h1.site-name QuizMaster
+    nav.main-nav
+      ul
+        li.active
+          a(href="/") Home
+        li.dropdown
+          a.dropdown-toggle(href="#")
+            | Doing test
+            i.fa-solid.fa-caret-down
+          .dropdown-menu
+            ul
+              li
+                a.active(href="/do-test") Completed Tests
+              li
+                a(href="/do-test/create") Create New Test
+    .header-actions
+      if(user)
+        button.btn-cards
+          i.fa-solid.fa-clipboard-list
+          | Cards
+          span.badge 0
+      .user-menu
+        button.user-menu-toggle
+          img.user-avatar(
+            alt="User" 
+            src=(user) ? user.avatar : "https://res.cloudinary.com/dgtrhaivj/image/upload/v1746523032/default-avatar-profile-icon-social-media-user-photo-in-flat-style-vector_teeydt.jpg"
+            )
+        .user-dropdown
+          ul
+            if(user)
+              li
+                a(href="/users/info")
+                  i.fa-solid.fa-user
+                  | Profile
+              li
+                a(href="#")
+                  i.fa-solid.fa-gear
+                  | Settings
+              li
+                a(href="/users/logout")
+                  i.fa-solid.fa-right-from-bracket
+                  | Log out
+            else
+              li
+                a(href="/users/login")
+                  i.fa-solid.fa-right-to-bracket
+                  | Log in

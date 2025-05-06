@@ -4,7 +4,7 @@ const approx = require('approximate-number');
 module.exports.index = async (req, res) => {
   const categories = await Category.find({
     deleted: false
-  }).sort({favorite: "desc"}).select("title favorite slug");
+  }).limit(6).sort({favorite: "desc"}).select("title favorite slug");
   
   for (const category of categories) {
     category.approxFavorite = approx(category.favorite);

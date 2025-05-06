@@ -1,58 +1,99 @@
 extends ../../layouts/default.pug
 
 block main
+  //- link(rel='stylesheet', href='/client/css/card.css')
+  //- link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css', rel='stylesheet')
+  //- link(href='https://use.fontawesome.com/e07be0b1c4.css', media='all', rel='stylesheet')
+  //- link(rel='canonical', href='https://codepen.io/nicolaskadis/pen/bOLEEd')
+
+  //- h1.heading Paginate anything!
+  //- .container.border
+  //-   .pagination-items.w-70
+
+  //-     each card, index in cards
+  //-       .article-loop
+  //-         input(type='checkbox' id=card.id)
+  //-         label.col-md-4.card-container.w-75(for=card.id, style='margin: auto')
+  //-           .card-flip(style='')
+  //-             .card.front
+  //-               .card-block
+  //-                 h2.card-title.text-center Question #{index + 1}
+  //-                 h6.card-subtitle.mb-2.text-muted.text-center
+  //-                   span(style='font-size: 20px; font-weight: 700')
+  //-                     | Subject:
+  //-                   |                     #{card.subject}
+  //-                 p.card-text.text-center
+  //-                   | #{card.question}
+  //-             .card.back
+  //-               .card-block
+  //-                 h2.card-title.text-center Answer
+  //-                 h6.card-subtitle.mb-2.text-muted.text-center
+  //-                   span(style='font-size: 20px; font-weight: 700')
+  //-                     | Level: 
+  //-                   span(class= (card.level == "Easy" ? "text-success" : (card.level == "Medium" ? "text-primary" : "text-danger")) ) #{card.level}
+  //-                 p.card-text.text-center #{card.answer}
+
+  //-   .pagination
+  //-     span.pagination-button &laquo;
+  //-     span.pagination-button.page-num.active 1
+  //-     span.pagination-button &raquo;
+
+  //- script(src='https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js')
+  //- script(src='https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-6d8bf8b4b479137260842506acbb12717dace0823c023e08b96360e60b0840d9.js')
+  //- script(src='https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-44fe83e49b63affec96918c9af88c0d80b209a862cf87ac46bc933074b8c557d.js')
+  //- script(src='https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js')
+  //- script(src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js')
+  //- script(src='https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-48d97568-b289-f093-b748-9ca72406ce96', crossorigin='')
+  //- script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+  //- script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
+  //- script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js')
+  //- script(src='https://use.fontawesome.com/e07be0b1c4.js')
+  //- script#rendered-js
+  //- //- script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')
+  //- script(src="/client/js/card.js") 
+  //- script(src='https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js')
+
   link(rel='stylesheet', href='/client/css/card.css')
-  link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css', rel='stylesheet')
-  link(href='https://use.fontawesome.com/e07be0b1c4.css', media='all', rel='stylesheet')
-  link(rel='canonical', href='https://codepen.io/nicolaskadis/pen/bOLEEd')
+  .container
+    header
+      h1 Paginate anything!
+      .favorite-container
+        button#favorite-btn.favorite-btn
+          i.far.fa-heart
+          span#favorite-count 0
+    main
+      .flashcards-container
+        each card, index in cards
+          .flashcard-wrapper
+            #card1.flashcard
+              .flashcard-front
+                .card-content
+                  h2 Question #{index + 1}
+                  .subject Subject: #{card.subject}
+                  p.question-text #{card.question}
+                .card-actions
+                  button.flip-btn Flip to see answer
+              .flashcard-back
+                .card-content
+                  h2 Answer
+                  .level
+                    | Level:
+                    span(class= (card.level == "Easy" ? "easy" : (card.level == "Medium" ? "medium" : "hard")) ) #{card.level}
+                  p.answer-text
+                    | #{card.answer}
+                .card-actions
+                  button.flip-btn Back to question
+      .pagination
+        button.page-btn.prev-btn(disabled="") «
+        //- button.page-btn.page-number.active(data-page="1") 1
+        //- button.page-btn.page-number(data-page="2") 2
+        //- #{cards.length}
+        each card, index in cards
+          if index % 2 == 0
+            if index == 0
+              button.page-btn.page-number.active(data-page=index + 1) #{index + 1}
+            else
+              button.page-btn.page-number(data-page=index / 2 + 1) #{index / 2 + 1}
+        button.page-btn.next-btn »
 
-  h1.heading Paginate anything!
-  p.heading
-    | Take any set of elements, regardless of their children (or parent). Apply
-    | the paginate method to them. 
-    strong Voila!
-  .container.border
-    .pagination-items.w-70
-
-      each card, index in cards
-        .article-loop
-          input(type='checkbox' id=card.id)
-          label.col-md-4.card-container.w-75(for=card.id, style='margin: auto')
-            .card-flip(style='')
-              .card.front
-                .card-block
-                  h2.card-title.text-center Question #{index + 1}
-                  h6.card-subtitle.mb-2.text-muted.text-center
-                    span(style='font-size: 20px; font-weight: 700')
-                      | Subject:
-                    |                     #{card.subject}
-                  p.card-text.text-center
-                    | #{card.question}
-              .card.back
-                .card-block
-                  h2.card-title.text-center Answer
-                  h6.card-subtitle.mb-2.text-muted.text-center
-                    span(style='font-size: 20px; font-weight: 700')
-                      | Level: 
-                    span(class= (card.level == "Easy" ? "text-success" : (card.level == "Medium" ? "text-primary" : "text-danger")) ) #{card.level}
-                  p.card-text.text-center #{card.answer}
-
-    .pagination
-      span.pagination-button &laquo;
-      span.pagination-button.page-num.active 1
-      span.pagination-button &raquo;
-
-  script(src='https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js')
-  script(src='https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-6d8bf8b4b479137260842506acbb12717dace0823c023e08b96360e60b0840d9.js')
-  script(src='https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-44fe83e49b63affec96918c9af88c0d80b209a862cf87ac46bc933074b8c557d.js')
-  script(src='https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js')
-  script(src='https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-48d97568-b289-f093-b748-9ca72406ce96', crossorigin='')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js')
-  script(src='https://use.fontawesome.com/e07be0b1c4.js')
-  script#rendered-js
-  //- script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js')
-  script(src="/client/js/card.js") 
-  script(src='https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js')
+  script(src="/client/js/card.js")

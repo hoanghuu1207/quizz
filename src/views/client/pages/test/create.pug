@@ -1,0 +1,164 @@
+extends ../../layouts/default.pug
+
+block main
+  link(rel="stylesheet" href="/client/css/do-test.create.css")
+  div.container
+    h1.page-title
+      | Create a New Quiz
+    div.card
+      div.card-header
+        h2.card-title
+          | Quiz Information
+      div.card-content
+        div.form-group
+          label(for='quiz-title')
+            | Quiz Title
+          input#quiz-title(type='text' placeholder='Enter quiz title')
+        div.form-group
+          label
+            | Time Limit
+          div.time-selector
+            div.time-display
+              div.time-circle
+                div#time-display.time-value
+                  | 30m
+                div.time-icon
+                  | ⏱️
+            div.time-controls
+              div.time-preset-container
+                div.time-preset(data-minutes='15')
+                  | 15m
+                div.time-preset(data-minutes='30')
+                  | 30m
+                div.time-preset(data-minutes='60')
+                  | 1h
+                div.time-preset(data-minutes='120')
+                  | 2h
+                div.time-preset(data-minutes='240')
+                  | 4h
+                div.time-preset(data-minutes='480')
+                  | 8h
+              div.time-custom
+                div.time-input-group
+                  div.time-input-container
+                    input#hours-input(type='number' min='0' max='12' value='0')
+                    label(for='hours-input')
+                      | hours
+                  div.time-input-container
+                    input#minutes-input(type='number' min='0' max='59' step='5' value='30')
+                    label(for='minutes-input')
+                      | minutes
+    div.questions-section
+      div.section-header
+        h2
+          | Questions
+        button#add-question-btn.btn.btn-outline
+          svg(xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+            circle(cx='12' cy='12' r='10')
+            line(x1='12' y1='8' x2='12' y2='16')
+            line(x1='8' y1='12' x2='16' y2='12')
+          | Add Question
+      div#questions-container
+        div.empty-questions
+          p
+            | No questions yet. Click "Add Question" to get started.
+    div.form-actions
+      button.btn.btn-primary
+        | Save Quiz
+  textarea(
+    class="textarea-mce" placeholder="Enter your question"
+  )
+  template#question-template
+    .question-card(data-id="")
+      .question-header
+        .question-title-container
+          span.question-number
+          //- textarea.question-title(placeholder="Enter your question")
+          textarea(
+            class="textarea-mce question-title" placeholder="Enter your question"
+          ) 
+        .question-actions
+          button.btn-icon.toggle-question
+            svg.chevron-up(
+              stroke-linejoin="round" 
+              stroke-linecap="round" 
+              stroke-width="2" 
+              stroke="currentColor" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              height="16" 
+              width="16" 
+              xmlns="http://www.w3.org/2000/svg"
+              )
+              polyline(points="18 15 12 9 6 15")
+            svg.chevron-down(
+              stroke-linejoin="round" 
+              stroke-linecap="round" 
+              stroke-width="2" 
+              stroke="currentColor" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              height="16" 
+              width="16" 
+              xmlns="http://www.w3.org/2000/svg"
+              )
+              polyline(points="6 9 12 15 18 9")
+          button.btn-icon.delete-question
+            svg(
+              stroke-linejoin="round" 
+              stroke-linecap="round" 
+              stroke-width="2" 
+              stroke="currentColor" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              height="16" 
+              width="16" 
+              xmlns="http://www.w3.org/2000/svg"
+              )
+              polyline(points="3 6 5 6 21 6")
+              path(d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2")
+      .question-content
+        .form-group
+          label Answers
+          .answers-container
+            .answer-option
+              input.answer-radio(
+                name="" 
+                type="radio"
+                )
+              .answer-letter A:
+              input.answer-text(
+                placeholder="Answer option 1" 
+                type="text"
+                )
+            .answer-option
+              input.answer-radio(
+                name="" 
+                type="radio"
+                )
+              .answer-letter B:
+              input.answer-text(
+                placeholder="Answer option 2" 
+                type="text"
+                )
+            .answer-option
+              input.answer-radio(
+                name="" 
+                type="radio"
+                )
+              .answer-letter C:
+              input.answer-text(
+                placeholder="Answer option 3" 
+                type="text"
+                )
+            .answer-option
+              input.answer-radio(
+                name="" 
+                type="radio"
+                )
+              .answer-letter D:
+              input.answer-text(
+                placeholder="Answer option 4" 
+                type="text"
+                )
+  script(src='/client/js/do-test.create.js')
