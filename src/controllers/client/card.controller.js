@@ -1,8 +1,28 @@
 const Category = require("../../models/category-card.model");
 const Card = require("../../models/card.model");
 const Subject = require("../../models/subject.model");
+const approx = require('approximate-number');
 
-module.exports.listCard = async (req, res) => {
+// [GET] /cards
+module.exports.index = async (req, res) => {
+  const categories = await Category.find({
+    deleted: false
+  }).sort({favorite: "desc"}).select("title favorite slug");
+
+  console.log(categories);
+
+  for (const category of categories) {
+    category.approxFavorite = approx(category.favorite);
+  }
+
+  res.render("client/pages/card/index", {
+    titlePage: "Quizz",
+    categories
+  });
+};
+
+// [GET] /cards/:slugCategory
+module.exports.detail = async (req, res) => {
   const slug = req.params.slugCategory;
   const category = await Category.findOne({
     deleted: false,
@@ -27,7 +47,7 @@ module.exports.listCard = async (req, res) => {
 
       cards.sort(() => Math.random() - 0.5);
 
-      res.render("client/pages/card/index", {
+      res.render("client/pages/card/detail", {
         titlePage: "Cards",
         cards
       });

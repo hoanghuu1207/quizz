@@ -5,11 +5,11 @@ module.exports.index = async (req, res) => {
   const categories = await Category.find({
     deleted: false
   }).limit(6).sort({favorite: "desc"}).select("title favorite slug");
-  
+
   for (const category of categories) {
     category.approxFavorite = approx(category.favorite);
   }
-  
+
   res.render("client/pages/home/index", {
     titlePage: "Quizz",
     categories

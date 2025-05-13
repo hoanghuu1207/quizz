@@ -31,11 +31,12 @@ block main
   //-               .text-center
   //-                 a.btn.btn-lg.btn-outline-dark.mt-auto(href=`/cards/${category.slug}`) Details
   main.main-content
+    link(rel='stylesheet', href='/client/css/home.css')
     .container
       .section-header
         h2 Popular Cards
         .section-actions
-          button.btn-filter
+          a.btn-filter(href=`/cards`)
             i.fa-solid.fa-expand
             | All cards
       .quiz-grid
@@ -56,9 +57,6 @@ block main
                 span.quiz-likes
                   i.fa-solid.fa-heart
                   | #{category.approxFavorite}
-                span.quiz-time
-                  i.fa-solid.fa-circle-info
-                  | Card
               a.btn-details(href=`/cards/${category.slug}`) Details
       //- .pagination
       //-   button.btn-page.active 1
