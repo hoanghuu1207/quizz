@@ -9,8 +9,6 @@ module.exports.index = async (req, res) => {
     deleted: false
   }).sort({favorite: "desc"}).select("title favorite slug");
 
-  console.log(categories);
-
   for (const category of categories) {
     category.approxFavorite = approx(category.favorite);
   }

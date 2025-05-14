@@ -125,4 +125,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize time display
   updateTimeDisplay();
+
+  const form = document.querySelector('form#create-quiz-form'); // Chọn form cần xử lý
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault(); // Ngăn form submit mặc định
+
+    const questions = form.querySelectorAll('.question-card');
+
+    console.log('Questions:', questions);
+    
+    const formattedData = [];
+
+    questions.forEach((question) => {
+      const questionId = question.dataset.id;
+      const title = question.querySelector('.question-header .question-title').value;
+      const answers = Array.from(question.querySelectorAll('.question-content .answer-option')).map((option) => {
+        const radio = option.querySelector('input[type="radio"]').checked;
+
+        const answerText = option.querySelector('input.answer-text').value;
+
+        return {
+          text: answerText,
+          isCorrect: radio,
+        };
+      });
+
+      // Lưu dữ liệu câu hỏi vào đối tượng
+      // formattedData.questions[questionId] = {
+      //   title,
+      //   answers,
+      //   correctAnswer: answers.find((answer) => answer.isCorrect)?.text || null,
+      // };
+      formattedData.push({
+        questionId,
+        title,
+        answers,
+      });
+    });
+    console.log('Formatted Data:', formattedData);
+
+
+    // Send to server
+    fetch(form.action, {
+      method: form.method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formattedData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Server Response:', data);
+        // Xử lý phản hồi từ server (nếu cần)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
 });
