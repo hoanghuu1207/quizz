@@ -132,18 +132,80 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault(); // Ngăn form submit mặc định
 
     const questions = form.querySelectorAll('.question-card');
-
-    console.log('Questions:', questions);
     
-    const formattedData = [];
+    const titleQuiz = form.querySelector('input#quiz-title').value;
+    const hour = form.querySelector('input#hours-input').value;
+    const minute = form.querySelector('input#minutes-input').value;
+
+    if(!titleQuiz) {
+      alert('Please enter a title for the quiz.');
+      return;
+    }
+
+    if (questions.length === 0) {
+      alert('Please add at least one question.');
+      return;
+    }
+
+    if (hour < 0 || minute < 0) {
+      alert('Time limit cannot be negative.')
+      return;
+    }
+
+    if (hour > 24 || minute > 59) {
+      alert('Time limit is not valid.')
+      return;
+    }
+
+    let hasError = false;
+    questions.forEach((question, index) => {
+      const questionNumber = index + 1;
+      const title = question.querySelector('.question-header .question-title').value.trim();
+      const answerOptions = question.querySelectorAll('.question-content .answer-option');
+      const hasCorrectAnswer = Array.from(answerOptions).some(option => 
+        option.querySelector('input[type="radio"]').checked
+      );
+      const answers = Array.from(answerOptions).map(option => 
+        option.querySelector('input.answer-text').value.trim()
+      );
+
+      if (!title) {
+        alert(`Question ${questionNumber}: Please enter question title`);
+        hasError = true;
+        return;
+      }
+
+      const emptyAnswers = answers.some(answer => !answer);
+      if (emptyAnswers) {
+        alert(`Question ${questionNumber}: Please fill in all answer options`);
+        hasError = true;
+        return;
+      }
+
+      if (!hasCorrectAnswer) {
+        alert(`Question ${questionNumber}: Please select a correct answer`);
+        hasError = true;
+        return;
+      }
+    });
+
+    if (hasError) {
+      return;
+    }
+
+    const formattedData = {
+      title: titleQuiz,
+      timeLimit: parseInt(hour) * 60 + parseInt(minute),
+      questions: [],
+    }
 
     questions.forEach((question) => {
       const questionId = question.dataset.id;
-      const title = question.querySelector('.question-header .question-title').value;
+      const title = question.querySelector('.question-header .question-title').value.trim();
       const answers = Array.from(question.querySelectorAll('.question-content .answer-option')).map((option) => {
         const radio = option.querySelector('input[type="radio"]').checked;
 
-        const answerText = option.querySelector('input.answer-text').value;
+        const answerText = option.querySelector('input.answer-text').value.trim();
 
         return {
           text: answerText,
@@ -151,13 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
       });
 
-      // Lưu dữ liệu câu hỏi vào đối tượng
-      // formattedData.questions[questionId] = {
-      //   title,
-      //   answers,
-      //   correctAnswer: answers.find((answer) => answer.isCorrect)?.text || null,
-      // };
-      formattedData.push({
+      formattedData.questions.push({
         questionId,
         title,
         answers,
@@ -177,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function () {
       .then((response) => response.json())
       .then((data) => {
         console.log('Server Response:', data);
-        // Xử lý phản hồi từ server (nếu cần)
       })
       .catch((error) => {
         console.error('Error:', error);

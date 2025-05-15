@@ -46,7 +46,7 @@ block main
                 div.time-custom
                   div.time-input-group
                     div.time-input-container
-                      input#hours-input(type='number' name='time-hours' min='0' max='12' value='0')
+                      input#hours-input(type='number' name='time-hours' min='0' max='24' value='0')
                       label(for='hours-input')
                         | hours
                     div.time-input-container
@@ -57,7 +57,7 @@ block main
         div.section-header
           h2
             | Questions
-          button#add-question-btn.btn.btn-outline
+          button#add-question-btn.btn.btn-outline(type='button')
             svg(xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
               circle(cx='12' cy='12' r='10')
               line(x1='12' y1='8' x2='12' y2='16')

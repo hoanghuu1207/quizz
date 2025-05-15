@@ -23,7 +23,7 @@ module.exports.createPost = async (req, res) => {
   // Error of the form submission, when click "Add Question" button, or edit "Time Limit" field, form submission will be triggered
 
   console.log(req.body);
-  const questions = req.body;
+  const { questions } = req.body;
   questions.forEach((question, index) => {
     console.log(`Question ${index + 1}: ${question.title}`);
     question.answers.forEach((answer, answerIndex) => {
