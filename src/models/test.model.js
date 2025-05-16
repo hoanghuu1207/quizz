@@ -4,6 +4,10 @@ const testSchema = new mongoose.Schema(
   {
     title: String,
     time: Number,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
     deleted: {
       type: Boolean,
       default: false

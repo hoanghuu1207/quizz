@@ -1,10 +1,8 @@
-const md5 = require("md5");
-const generate = require("../../helpers/generate");
-
 const User = require("../../models/user.model");
 const ForgotPassword = require("../../models/forgot-password.model");
 const generateHelper = require("../../helpers/generate");
 const sendMailHelper = require("../../helpers/sendMail");
+const authService = require("../../services/auth.service");
 
 //[GET] /users/register
 module.exports.register = async (req, res) => {
@@ -15,31 +13,23 @@ module.exports.register = async (req, res) => {
 
 //[POST] /users/register
 module.exports.registerPost = async (req, res) => {
-  const existEmail = await User.findOne({
-    email: req.body.email,
-    deleted: false
-  });
+  try {
+    const user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: password
+    };
 
-  if(existEmail){
-    req.flash("error", "Email already exists");
-    res.redirect("back");
-    return;
+    const foundUser = await authService.register(user, res);
+
+    if(foundUser){
+      req.flash("success", "Successful");
+      res.redirect("/users/login");
+    }
+  } catch (error) {
+    console.log(error);
   }
-
-  const item = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: md5(req.body.password),
-    tokenUser: generate.generateRandomString(30)
-  };
-
-  const user = new User(item);
-  await user.save();
-
-  res.cookie("tokenUser", user.tokenUser);
-
-  res.redirect("/");
 };
 
 //[GET] /users/login
@@ -51,35 +41,20 @@ module.exports.login = async (req, res) => {
 
 //[POST] /users/login
 module.exports.loginPost = async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  try {
+    const user = {
+      email: req.body.email,
+      password: req.body.password
+    };
 
-  const user = await User.findOne({
-    email: email,
-    deleted: false
-  });
+    const foundUser = await authService.login(user, res);
 
-  if(!user){
-    req.flash("error", "Email doesn't exist or wrong password");
-    res.redirect("back");
-    return;
+    if(foundUser){
+      res.redirect("/");
+    }
+  } catch (error) {
+    console.log(error);
   }
-
-  if(md5(password) !== user.password){
-    req.flash("error", "Email doesn't exist or wrong password");
-    res.redirect("back");
-    return;
-  }
-
-  if(user.status === "inactive"){
-    req.flash("warning", "Your account has been locked");
-    res.redirect("back");
-    return;
-  }
-
-  res.cookie("tokenUser", user.tokenUser);
-
-  res.redirect("/");
 };
 
 //[GET] /user/logout

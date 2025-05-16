@@ -6,10 +6,10 @@ const userSchema = new mongoose.Schema(
     lastName: String,
     email: String,
     password: String,
-    tokenUser: {
-      type: String,
-      default: ""
-    },
+    // tokenUser: {
+    //   type: String,
+    //   default: ""
+    // },
     phone: String,
     avatar: {
       type: String,
