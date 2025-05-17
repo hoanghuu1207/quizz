@@ -1,15 +1,29 @@
 const User = require("../../models/user.model");
 
-module.exports.infoUser = async (req, res, next) => {
-  if(req.cookies.tokenUser){
-    const user = await User.findOne({
-      tokenUser: req.cookies.tokenUser,
-      deleted: false
-    }).select("-password");
+const jwt = require("jsonwebtoken");
 
-    if(user){
-      res.locals.user = user;
+const SECRET_KEY = process.env.SECRET_KEY;
+
+module.exports.infoUser = async (req, res, next) => {
+  try {
+    const token = req.cookies.tokenUser;
+
+    if (token) {
+      const decoded = jwt.verify(token, SECRET_KEY);
+      req.tokenUser = decoded;
+      
+      const user = await User.findOne({
+        _id: decoded._id,
+        deleted: false
+      }).select("-password");
+
+      if (user) {
+        res.locals.user = user;
+      }
     }
+  } catch (error) {
+    console.error("Error verifying token:", error);
   }
+
   next();
 }

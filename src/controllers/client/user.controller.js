@@ -18,14 +18,14 @@ module.exports.registerPost = async (req, res) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: password
+      password: req.body.password
     };
 
-    const foundUser = await authService.register(user, res);
+    const foundUser = await authService.register(user);
 
     if(foundUser){
-      req.flash("success", "Successful");
       res.redirect("/users/login");
+      req.flash("success", "Successful");
     }
   } catch (error) {
     console.log(error);
@@ -51,6 +51,7 @@ module.exports.loginPost = async (req, res) => {
 
     if(foundUser){
       res.redirect("/");
+      req.flash("success", "Login Successful");
     }
   } catch (error) {
     console.log(error);

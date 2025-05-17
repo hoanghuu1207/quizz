@@ -62,3 +62,8 @@ const login = async (user, res) => {
     throw error;
   }
 };
+
+module.exports = {
+  register,
+  login
+};
