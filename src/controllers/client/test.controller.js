@@ -1,15 +1,22 @@
 const Test = require("../../models/test.model");
 const Question = require("../../models/question.model");
 const Answer = require("../../models/answer.model");
+const User = require("../../models/user.model");
 
 // [GET] /do-test
 module.exports.index = async (req, res) => {
+  const tests = await Test.find({
+    deleted: false
+  }).select("title time userId slug");
+
+  for (const test of tests) {
+    const user = await User.findById(test.userId).select("firstName lastName");
+    test.user = user.firstName + " " + user.lastName;
+  }
+
   res.render("client/pages/test/index", {
-    titlePage: "Test",
-    test: {
-      title: "Test",
-      description: "This is a test description"
-    }
+    titlePage: "List of Quizzes",
+    tests,
   });
 }
 

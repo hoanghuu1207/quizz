@@ -58,44 +58,33 @@ block main
                   i.fa-solid.fa-heart
                   | #{category.approxFavorite}
               a.btn-details(href=`/cards/${category.slug}`) Details
-      //- .pagination
-      //-   button.btn-page.active 1
-      //-   button.btn-page 2
-      //-   button.btn-page 3
-      //-   button.btn-page 4
-      //-   button.btn-page 5
-      //-   button.btn-page
-      //-     i.fa-solid.fa-ellipsis
-      //-   button.btn-page
-      //-     | Next
-      //-     i.fa-solid.fa-chevron-right
 
     .container
       .section-header
         h2 Popular Tests
         .section-actions
-          button.btn-filter
+          a.btn-filter(href=`/do-test`)
             i.fa-solid.fa-expand
             | All tests
       .quiz-grid
-        //- each category in categories
-        //-   .quiz-card
-        //-     .quiz-image
-        //-       span.quiz-badge Top
-        //-       img(
-        //-         alt="Quiz" 
-        //-         src="https://placehold.co/450x300/e9ecef/adb5bd?text=Quiz+Image"
-        //-       )
-        //-     .quiz-content
-        //-       h3.quiz-title #{category.title}
-        //-       .quiz-author
-        //-         i.fa-solid.fa-user
-        //-         | Huynh Huu Hoang
-        //-       .quiz-stats
-        //-         span.quiz-likes
-        //-           i.fa-solid.fa-heart
-        //-           | #{category.approxFavorite}
-        //-         span.quiz-time
-        //-           i.fa-solid.fa-circle-info
-        //-           | Card
-        //-       a.btn-details(href=`/cards/${category.slug}`) Details
+        each test in tests
+          .quiz-card
+            .quiz-image
+              span.quiz-badge Top
+              img(
+                alt="Quiz"
+                src="https://placehold.co/450x300/e9ecef/adb5bd?text=Quiz+Image"
+              )
+            .quiz-content
+              h3.quiz-title #{test.title}
+              .quiz-author
+                i.fa-solid.fa-user
+                | #{test.user}
+              .quiz-stats
+                span.quiz-likes
+                  i.fa-solid.fa-heart
+                  | 0
+                span.quiz-time
+                  i.fa-solid.fa-circle-info
+                  | #{test.time} min
+              a.btn-details(href=`/do-test/details/${test.slug}`) Details

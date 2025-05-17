@@ -12,7 +12,8 @@ const testSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    deletedAt: Date
+    deletedAt: Date,
+    slug: { type: String, slug: "title", unique: true}
   }, {
     timestamps: true
   }

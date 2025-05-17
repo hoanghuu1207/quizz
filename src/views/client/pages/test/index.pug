@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug
+
+block main
+  main.main-content
+    link(rel='stylesheet', href='/client/css/home.css')
+    .container
+      .section-header
+        h2 All Tests
+      .quiz-grid
+        each test in tests
+          .quiz-card
+            .quiz-image
+              span.quiz-badge Top
+              img(
+                alt="Quiz" 
+                src="https://placehold.co/450x300/e9ecef/adb5bd?text=Quiz+Image"
+              )
+            .quiz-content
+              h3.quiz-title #{test.title}
+              .quiz-author
+                i.fa-solid.fa-user
+                | #{test.user}
+              .quiz-stats
+                span.quiz-likes
+                  i.fa-solid.fa-heart
+                  | 0
+                span.quiz-time
+                  i.fa-solid.fa-circle-info
+                  | #{test.time} min
+              a.btn-details(href=`/do-test/details/${test.slug}`) Details
