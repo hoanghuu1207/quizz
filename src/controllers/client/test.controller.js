@@ -19,15 +19,21 @@ module.exports.create = async (req, res) => {
 
 // [POST] /do-test/create
 module.exports.createPost = async (req, res) => {
-  // Handle the form submission, only submit when user click the button
-  // Error of the form submission, when click "Add Question" button, or edit "Time Limit" field, form submission will be triggered
+  const { title, timeLimit, questions } = req.body;
 
-  console.log(req.body);
-  const { questions } = req.body;
-  questions.forEach((question, index) => {
-    console.log(`Question ${index + 1}: ${question.title}`);
-    question.answers.forEach((answer, answerIndex) => {
-      console.log(answer);
+  console.log("Title:", title);
+  console.log("Time Limit:", timeLimit);
+
+  questions.forEach((question) => {
+    const title = question.title;
+    console.log("Question Title:", title);
+    
+    const answerOptions = question.answers;
+    answerOptions.forEach((option) => {
+      const text = option.text;
+      const isCorrect = option.isCorrect;
+
+      console.log("Answer Option:", text, "Is Correct:", isCorrect);
     });
   });
 }

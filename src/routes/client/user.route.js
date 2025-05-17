@@ -24,4 +24,6 @@ router.get("/info", authMiddleware.requireAuth, controller.info);
 router.patch("/info/upload", authMiddleware.requireAuth, upload.single("avatar"), uploadImage.upload , controller.infoUpload);
 router.patch("/info", controller.infoPatch);
 
+// Error in /info
+
 module.exports = router;
